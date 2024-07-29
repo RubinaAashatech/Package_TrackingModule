@@ -60,6 +60,9 @@
                         <a class="dropdown-item" href="#">{{ __('Update Password') }}</a>
                         <a class="dropdown-item" href="#"> {{ __('Reset Password') }}</a>
                         <a class="dropdown-item" href="#"
+                        <a class="dropdown-item" href="#">{{ __('Update Password') }}</a>
+                        <a class="dropdown-item" href="#"> {{ __('Reset Password') }}</a>
+                        <a class="dropdown-item" href="#"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             {{ __('Logout') }}
                         </a>
