@@ -2,14 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class Parcel extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'tracking_number',
         'customer_id',
@@ -21,14 +18,32 @@ class Parcel extends Model
         'estimated_delivery_date',
     ];
 
-    protected static function boot()
-    {
-        parent::boot();
+    protected $casts = [
+        'sending_date' => 'datetime',
+        'estimated_delivery_date' => 'datetime',
+    ];
 
+    protected static function booted()
+    {
         static::creating(function ($parcel) {
             if (empty($parcel->tracking_number)) {
-                $parcel->tracking_number = 'TRK-' . strtoupper(Str::random(10)); // Generate a unique tracking number
+                $parcel->tracking_number = static::generateTrackingNumber();
             }
         });
+    }
+
+    protected static function generateTrackingNumber()
+    {
+        return 'TRACK-' . strtoupper(Str::random(10));
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
+    public function receiver()
+    {
+        return $this->belongsTo(Receiver::class);
     }
 }

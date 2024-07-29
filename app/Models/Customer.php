@@ -15,4 +15,9 @@ class Customer extends Model
         'phone_no',
         'email',
     ];
+
+    public function parcels()
+    {
+        return $this->hasMany(Parcel::class);
+    }
 }

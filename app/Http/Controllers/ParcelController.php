@@ -3,84 +3,144 @@
 namespace App\Http\Controllers;
 
 use App\Models\Parcel;
-use App\Http\Controllers\Controller;
+use App\Models\Receiver;
+use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class ParcelController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the parcels.
      *
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse|View
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if ($request->expectsJson()) {
+            $parcels = Parcel::all();
+            return response()->json($parcels);
+        }
+        $parcels = Parcel::all();
+        return view('admin.parcels.index', compact('parcels'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new parcel.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
-        //
+        $customers = Customer::all();
+        $receivers = Receiver::all();
+        return view('admin.parcels.create', compact('customers', 'receivers'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created parcel in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return JsonResponse|RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse|RedirectResponse
     {
-        //
+        $validated = $request->validate([
+            'customer_id' => 'required|exists:customers,id',
+            'receiver_id' => 'required|exists:receivers,id',
+            'carrier' => 'required|string|max:255',
+            'sending_date' => 'required|date',
+            'weight' => 'required|numeric',
+            'status' => 'required|string|max:255',
+            'estimated_delivery_date' => 'required|date',
+        ]);
+
+        $parcel = Parcel::create($validated);
+
+        if ($request->expectsJson()) {
+            return response()->json($parcel, 201); // 201 Created
+        }
+        return redirect()->route('api.parcels.index')->with('success', 'Parcel added successfully.');
+    }
+    /**
+     * Display the specified parcel.
+     *
+     * @param Parcel $parcel
+     * @param Request $request
+     * @return JsonResponse|View
+     */
+    public function show(Parcel $parcel, Request $request): JsonResponse|View
+    {
+        if ($request->expectsJson()) {
+            return response()->json($parcel);
+        }
+
+        return view('admin.parcels.show', compact('parcel'));
     }
 
     /**
-     * Display the specified resource.
+     * Show the form for editing the specified parcel.
      *
-     * @param  \App\Models\Parcel  $parcel
-     * @return \Illuminate\Http\Response
+     * @param Parcel $parcel
+     * @return View
      */
-    public function show(Parcel $parcel)
+    public function edit(Parcel $parcel): View
     {
-        //
+        $customers = Customer::all();
+        $receivers = Receiver::all();
+        return view('admin.parcels.update', compact('parcel', 'customers', 'receivers'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Update the specified parcel in storage.
      *
-     * @param  \App\Models\Parcel  $parcel
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Parcel $parcel
+     * @return JsonResponse|RedirectResponse
      */
-    public function edit(Parcel $parcel)
+    public function update(Request $request, Parcel $parcel): JsonResponse|RedirectResponse
     {
-        //
+        $request->validate([
+            'tracking_number' => 'required|string|unique:parcels,tracking_number,' . $parcel->id,
+            'customer_id' => 'required|exists:customers,id',
+            'receiver_id' => 'required|exists:receivers,id',
+            'carrier' => 'required|string|max:255',
+            'sending_date' => 'required|date',
+            'weight' => 'required|numeric|min:0',
+            'status' => 'required|string|max:255',
+            'estimated_delivery_date' => 'required|date',
+        ]);
+
+        $parcel->update($request->all());
+
+        if ($request->expectsJson()) {
+            return response()->json($parcel);
+        }
+
+        return redirect()->route('api.parcels.index')->with('success', 'Parcel updated successfully.');
     }
 
     /**
-     * Update the specified resource in storage.
+     * Remove the specified parcel from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Parcel  $parcel
-     * @return \Illuminate\Http\Response
+     * @param Parcel $parcel
+     * @return JsonResponse|RedirectResponse
      */
-    public function update(Request $request, Parcel $parcel)
+    public function destroy(Parcel $parcel): JsonResponse|RedirectResponse
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Parcel  $parcel
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Parcel $parcel)
-    {
-        //
+        try {
+            $parcel->delete();
+            if (request()->expectsJson()) {
+                return response()->json(null, 204); // 204 No Content
+            }
+            return redirect()->route('api.parcels.index')->with('success', 'Parcel deleted successfully.');
+        } catch (\Exception $e) {
+            if (request()->expectsJson()) {
+                return response()->json(['error' => 'Failed to delete parcel.'], 500); // 500 Internal Server Error
+            }
+            return redirect()->route('api.parcels.index')->with('error', 'Failed to delete parcel.');
+        }
     }
 }
