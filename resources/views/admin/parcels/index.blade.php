@@ -10,12 +10,22 @@
             {{ session('success') }}
         </div>
     @endif
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
     <table class="table table-bordered">
         <thead>
             <tr>
                 <th>Tracking Number</th>
                 <th>Customer</th>
                 <th>Receiver</th>
+                <th>Country</th>
+                <th>State</th>
+                <th>City</th>
+                <th>Street Address</th>
+                <th>Postal Code</th>
                 <th>Carrier</th>
                 <th>Sending Date</th>
                 <th>Weight</th>
@@ -30,6 +40,12 @@
                 <td>{{ $parcel->tracking_number }}</td>
                 <td>{{ $parcel->customer->fullname }}</td>
                 <td>{{ $parcel->receiver->fullname }}</td>
+                <td>{{ $parcel->receiver->country }}</td>
+                <td>{{ $parcel->receiver->state }}</td>
+                <td>{{ $parcel->receiver->city }}</td>
+                <td>{{ $parcel->receiver->street_address }}</td>
+                <td>{{ $parcel->receiver->postal_code }}</td>
+                
                 <td>{{ $parcel->carrier }}</td>
                 <td>{{ $parcel->sending_date->format('Y-m-d') }}</td>
                 <td>{{ $parcel->weight }}</td>

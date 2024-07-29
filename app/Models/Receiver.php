@@ -11,7 +11,11 @@ class Receiver extends Model
 
     protected $fillable = [
         'fullname',
-        'address',
+        'country',
+        'state',
+        'city',
+        'street_address',
+        'postal_code',
         'phone_no',
         'email',
     ];

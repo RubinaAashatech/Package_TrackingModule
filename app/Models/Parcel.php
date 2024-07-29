@@ -34,7 +34,7 @@ class Parcel extends Model
 
     protected static function generateTrackingNumber()
     {
-        return 'TRACK-' . strtoupper(Str::random(10));
+        return str_pad(rand(0, 999999999), 9, '0', STR_PAD_LEFT);
     }
 
     public function customer()
