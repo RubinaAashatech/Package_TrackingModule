@@ -161,7 +161,7 @@
                                                     </div>
                                                    
                                                     <!-- Google reCAPTCHA -->
-                                                    <div class="g-recaptcha" data-sitekey="6LdJRrspAAAAAMHgf6vvqik5fcTUD2ZKCZtG9Vaf"></div>
+                                                   
                                                     <div class="row flex-between-center">
                                                         <div class="col-auto">
                                                             <div class="form-check mb-0"><input
@@ -178,38 +178,7 @@
                                                             class="btn btn-primary d-block w-100 mt-3" type="submit"
                                                             name="submit">{{ __('Login') }}</button></div>
                                                 </form>
-                                               <!-- Load Google reCAPTCHA script -->
-                                                <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
-
-                                                <!-- reCAPTCHA initialization -->
-                                                <script type="text/javascript">
-                                                    var onloadCallback = function() {
-                                                        grecaptcha.render('html_element', {
-                                                            'sitekey' : '6LdJRrspAAAAAMHgf6vvqik5fcTUD2ZKCZtG9Vaf',
-                                                            'callback': verifyCallback,
-                                                            'expired-callback': recaptchaExpired
-                                                        });
-                                                    };
-
-                                                    function verifyCallback(response) {
-                                                        // If reCAPTCHA is ticked, enable form submission
-                                                        document.getElementById("loginForm").submit();
-                                                    }
-
-                                                    function recaptchaExpired() {
-                                                        // Handle expired reCAPTCHA here if needed
-                                                    }
-
-                                                    // Form submission with reCAPTCHA validation
-                                                    document.getElementById("loginForm").addEventListener("submit", function(event) {
-                                                        var response = grecaptcha.getResponse();
-                                                        if(response.length == 0) { // reCAPTCHA not verified
-                                                            event.preventDefault(); // Prevent form submission
-                                                            alert("Please tick the reCAPTCHA box before submitting.");
-                                                        }
-                                                    });
-
-                                                </script>
+                                            
                                             </div>
                                         </div>
                                     </div>
