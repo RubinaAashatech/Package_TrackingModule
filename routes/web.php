@@ -9,6 +9,8 @@ use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\AdminController;
+
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])
      ->name('login');
 Route::post('/login', [AuthenticatedSessionController::class, 'store']);
@@ -36,4 +38,8 @@ Route::post('/user/confirm-password', [ConfirmablePasswordController::class, 'st
      ->name('password.confirm');
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::prefix('/admin')->name('admin.')->middleware(['web', 'auth'])->group(function () {
+     Route::get('/', [AdminController::class, 'index'])->name('index');
 });
