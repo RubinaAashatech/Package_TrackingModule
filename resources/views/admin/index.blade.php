@@ -174,7 +174,7 @@
 
             <div class="col-lg-3">
                 <div class="ag-courses_item">
-                    <a href="{{route('admin.category.index')}}" class="ag-courses-item_link">
+                    <a href="#" class="ag-courses-item_link">
                         <div class="ag-courses-item_bg"></div>
 
                         <div class="ag-courses-item_title">
@@ -187,7 +187,7 @@
             <div class="col-lg-3">
                 <div class="ag-courses_item">
 
-                    <a href="{{route('admin.post.index')}}" class="ag-courses-item_link">
+                    <a href="#" class="ag-courses-item_link">
                         <div class="ag-courses-item_bg"></div>
 
                         <div class="ag-courses-item_title">
