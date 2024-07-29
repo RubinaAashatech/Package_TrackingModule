@@ -47,7 +47,7 @@
 
                <li class="nav-item">
                 <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
-                    <div class="col-auto navbar-vertical-label">Sitesetting</div>
+                    <div class="col-auto navbar-vertical-label">Customer</div>
                     <div class="col ps-0">
                         <hr class="mb-0 navbar-vertical-divider">
                     </div>
@@ -60,33 +60,14 @@
                         <div class="d-flex align-items-center">
                             <span class="nav-link-icon"><i class="fas fa-cog"></i></span>
                             <a href="#">
-                            <span class="nav-link-text ps-1">Sitesetting</span></a>
+                            <span class="nav-link-text ps-1">Customer</span></a>
                         </div>
                     </a>
 
-                    <li class="nav-item">
-                        <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
-                            <div class="col-auto navbar-vertical-label">About us</div>
-                            <div class="col ps-0">
-                                <hr class="mb-0 navbar-vertical-divider">
-                            </div>
-                        </div>
-                        <li class="nav-item">
-                            <a class="{{ Request::segment(2) == 'contact-details' ? '' : 'collapsed' }}"
-                                href="#" role="button" data-bs-toggle="collapse"
-                                aria-expanded="{{ Request::segment(2) == 'contact-details' ? 'true' : 'false' }}"
-                                aria-controls="dashboard18">
-                                {{-- <div class="d-flex align-items-center">
-                                    <span class="nav-link-icon"><i class="fas fa-home"></i></span>
-                                    <a href="{{ route('admin.about.index') }}">
-                                    <span class="nav-link-text ps-1">About us</span></a>
-                                </div> --}}
-                            </a>
-
 
                     <li class="nav-item">
                         <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
-                            <div class="col-auto navbar-vertical-label">Category</div>
+                            <div class="col-auto navbar-vertical-label">Receiver</div>
                             <div class="col ps-0">
                                 <hr class="mb-0 navbar-vertical-divider">
                             </div>
@@ -99,7 +80,7 @@
                             <div class="d-flex align-items-center">
                                 <span class="nav-link-icon"><i class="fas fa-list"></i></span>
                                 <a href="#">
-                                <span class="nav-link-text ps-1">Category</span></a>
+                                <span class="nav-link-text ps-1">Receiver</span></a>
                             </div>
                         </a>
 
@@ -140,7 +121,7 @@
 
                 <li class="nav-item">
                     <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
-                        <div class="col-auto navbar-vertical-label">Users</div>
+                        <div class="col-auto navbar-vertical-label">Parcel</div>
                         <div class="col ps-0">
                             <hr class="mb-0 navbar-vertical-divider">
                         </div>
@@ -153,14 +134,14 @@
                             <div class="d-flex align-items-center">
                                 <span class="nav-link-icon"><i class="fas fa-users"></i></span>
                                 <a href="#">
-                                <span class="nav-link-text ps-1">Users</span></a>
+                                <span class="nav-link-text ps-1">Parcel</span></a>
                             </div>
                         </a>
                         {{-- @endhasanyrole  --}}
 
                     <li class="nav-item">
                         <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
-                            <div class="col-auto navbar-vertical-label">Post</div>
+                            <div class="col-auto navbar-vertical-label">Tracking Updates</div>
                             <div class="col ps-0">
                                 <hr class="mb-0 navbar-vertical-divider">
 
@@ -175,13 +156,13 @@
                                 <div class="d-flex align-items-center">
                                     <span class="nav-link-icon"><i class="fas fa-file-signature"></i></span>
                                     <a href="#">
-                                    <span class="nav-link-text ps-1">Post</span></a>
+                                    <span class="nav-link-text ps-1">Tracking Updates</span></a>
                                 </div>
                             </a>
 
                             <li class="nav-item">
                                 <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
-                                    <div class="col-auto navbar-vertical-label">Roles</div>
+                                    <div class="col-auto navbar-vertical-label">Parcel Histories</div>
                                     <div class="col ps-0">
                                         <hr class="mb-0 navbar-vertical-divider">
                                     </div>
@@ -194,11 +175,11 @@
                                         <div class="d-flex align-items-center">
                                             <span class="nav-link-icon"><i class="fas fa-cogs"></i></span>
                                             <a href="#">
-                                            <span class="nav-link-text ps-1">Roles</span></a>
+                                            <span class="nav-link-text ps-1">Parcel Histories</span></a>
                                         </div>
                                     </a>
                         
-                                    <li class="nav-item">
+                                    {{-- <li class="nav-item">
                                         <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
                                             <div class="col-auto navbar-vertical-label">Permission</div>
                                             <div class="col ps-0">
@@ -219,7 +200,7 @@
 
                             <ul class="nav collapse {{ Request::segment(2) == 'contact-details' ? 'show' : '' }}"
                                 id="dashboard18">
-
+ --}}
 
 
                                 {{-- Visitors Book --}}

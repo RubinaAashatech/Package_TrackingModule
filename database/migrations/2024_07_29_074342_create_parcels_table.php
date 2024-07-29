@@ -23,7 +23,6 @@ return new class extends Migration
             $table->decimal('weight', 8, 2); 
             $table->string('status');
             $table->date('estimated_delivery_date');
-            $table->timestamps(); 
 
             // Foreign key constraints
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
