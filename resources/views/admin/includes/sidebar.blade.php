@@ -36,7 +36,7 @@
                                         d="M527.79 288H290.5l158.03 158.03c6.04 6.04 15.98 6.53 22.19.68 38.7-36.46 65.32-85.61 73.13-140.86 1.34-9.46-6.51-17.85-16.06-17.85zm-15.83-64.8C503.72 103.74 408.26 8.28 288.8.04 279.68-.59 272 7.1 272 16.24V240h223.77c9.14 0 16.82-7.68 16.19-16.8zM224 288V50.71c0-9.55-8.39-17.4-17.84-16.06C86.99 51.49-4.1 155.6.14 280.37 4.5 408.51 114.83 513.59 243.03 511.98c50.4-.63 96.97-16.87 135.26-44.03 7.9-5.6 8.42-17.23 1.57-24.08L224 288z">
                                     </path>
                                 </svg>
-                                <a href="{{route('dashboard')}}"><span class="nav-link-text ps-1">Dashboard</span></a>
+                                <a href="#"><span class="nav-link-text ps-1">Dashboard</span></a>
                             </span>
                         </div>
                     </a>
@@ -54,12 +54,12 @@
                 </div>
                 <li class="nav-item">
                     <a class="{{ Request::segment(2) == 'contact-details' ? '' : 'collapsed' }}"
-                        href="{{ route('admin.sitesetting.index') }}" role="button" data-bs-toggle="collapse"
+                        href="#" role="button" data-bs-toggle="collapse"
                         aria-expanded="{{ Request::segment(2) == 'contact-details' ? 'true' : 'false' }}"
                         aria-controls="dashboard18">
                         <div class="d-flex align-items-center">
                             <span class="nav-link-icon"><i class="fas fa-cog"></i></span>
-                            <a href="{{ route('admin.sitesetting.index') }}">
+                            <a href="#">
                             <span class="nav-link-text ps-1">Sitesetting</span></a>
                         </div>
                     </a>
@@ -73,7 +73,7 @@
                         </div>
                         <li class="nav-item">
                             <a class="{{ Request::segment(2) == 'contact-details' ? '' : 'collapsed' }}"
-                                href="{{ route('admin.role.index') }}" role="button" data-bs-toggle="collapse"
+                                href="#" role="button" data-bs-toggle="collapse"
                                 aria-expanded="{{ Request::segment(2) == 'contact-details' ? 'true' : 'false' }}"
                                 aria-controls="dashboard18">
                                 {{-- <div class="d-flex align-items-center">
@@ -93,12 +93,12 @@
                         </div>
                     <li class="nav-item">
                         <a class=" {{ Request::segment(2) == 'site-settings' ? '' : 'collapsed' }}"
-                            href="{{ route('admin.category.index') }}" role="button" data-bs-toggle="collapse"
+                            href="#" role="button" data-bs-toggle="collapse"
                             aria-expanded="{{ Request::segment(2) == 'site-settings' ? 'true' : 'false' }}"
                             aria-controls="dashboard6">
                             <div class="d-flex align-items-center">
                                 <span class="nav-link-icon"><i class="fas fa-list"></i></span>
-                                <a href="{{ route('admin.category.index') }}">
+                                <a href="#">
                                 <span class="nav-link-text ps-1">Category</span></a>
                             </div>
                         </a>
@@ -147,12 +147,12 @@
                     </div>
                     <li class="nav-item">
                         <a class="{{ Request::segment(2) == 'contact-details' ? '' : 'collapsed' }}"
-                            href="{{ route('admin.user.index') }}" role="button" data-bs-toggle="collapse"
+                            href="#" role="button" data-bs-toggle="collapse"
                             aria-expanded="{{ Request::segment(2) == 'contact-details' ? 'true' : 'false' }}"
                             aria-controls="dashboard18">
                             <div class="d-flex align-items-center">
                                 <span class="nav-link-icon"><i class="fas fa-users"></i></span>
-                                <a href="{{ route('admin.user.index') }}">
+                                <a href="#">
                                 <span class="nav-link-text ps-1">Users</span></a>
                             </div>
                         </a>
@@ -169,12 +169,12 @@
 
                         <li class="nav-item">
                             <a class="{{ Request::segment(2) == 'contact-details' ? '' : 'collapsed' }}"
-                                href="{{ route('admin.post.index') }}" role="button" data-bs-toggle="collapse"
+                                href="#" role="button" data-bs-toggle="collapse"
                                 aria-expanded="{{ Request::segment(2) == 'contact-details' ? 'true' : 'false' }}"
                                 aria-controls="dashboard18">
                                 <div class="d-flex align-items-center">
                                     <span class="nav-link-icon"><i class="fas fa-file-signature"></i></span>
-                                    <a href="{{ route('admin.post.index') }}">
+                                    <a href="#">
                                     <span class="nav-link-text ps-1">Post</span></a>
                                 </div>
                             </a>
@@ -188,12 +188,12 @@
                                 </div>
                                 <li class="nav-item">
                                     <a class="{{ Request::segment(2) == 'contact-details' ? '' : 'collapsed' }}"
-                                        href="{{ route('admin.role.index') }}" role="button" data-bs-toggle="collapse"
+                                        href="#" role="button" data-bs-toggle="collapse"
                                         aria-expanded="{{ Request::segment(2) == 'contact-details' ? 'true' : 'false' }}"
                                         aria-controls="dashboard18">
                                         <div class="d-flex align-items-center">
                                             <span class="nav-link-icon"><i class="fas fa-cogs"></i></span>
-                                            <a href="{{ route('admin.role.index') }}">
+                                            <a href="#">
                                             <span class="nav-link-text ps-1">Roles</span></a>
                                         </div>
                                     </a>
@@ -207,12 +207,12 @@
                                         </div>
                                         <li class="nav-item">
                                             <a class="{{ Request::segment(2) == 'contact-details' ? '' : 'collapsed' }}"
-                                                href="{{ route('admin.permission.index') }}" role="button" data-bs-toggle="collapse"
+                                                href="#" role="button" data-bs-toggle="collapse"
                                                 aria-expanded="{{ Request::segment(2) == 'contact-details' ? 'true' : 'false' }}"
                                                 aria-controls="dashboard18">
                                                 <div class="d-flex align-items-center">
                                                     <span class="nav-link-icon"><i class="fas fa-diagnoses"></i></span>
-                                                    <a href="{{ route('admin.permission.index') }}">
+                                                    <a href="#">
                                                     <span class="nav-link-text ps-1">Permission</span></a>
                                                 </div>
                                             </a>

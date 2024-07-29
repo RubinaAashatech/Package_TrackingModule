@@ -57,15 +57,15 @@
                 <div class="dropdown-menu dropdown-caret dropdown-caret dropdown-menu-end py-0"
                     aria-labelledby="navbarDropdownUser">
                     <div class="bg-white dark__bg-1000 rounded-2 py-2">
-                        <a class="dropdown-item" href="{{ route('profile.update') }}">{{ __('Update Password') }}</a>
-                        <a class="dropdown-item" href="{{ route('password.reset') }}"> {{ __('Reset Password') }}</a>
-                        <a class="dropdown-item" href="{{ route('logout') }}"
+                        <a class="dropdown-item" href="#">{{ __('Update Password') }}</a>
+                        <a class="dropdown-item" href="#"> {{ __('Reset Password') }}</a>
+                        <a class="dropdown-item" href="#"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             {{ __('Logout') }}
                         </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        {{-- <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
-                        </form>
+                        </form> --}}
                     </div>
                 </div>
         </li>
