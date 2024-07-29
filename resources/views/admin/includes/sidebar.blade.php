@@ -54,12 +54,12 @@
                 </div>
                 <li class="nav-item">
                     <a class="{{ Request::segment(2) == 'contact-details' ? '' : 'collapsed' }}"
-                        href="#" role="button" data-bs-toggle="collapse"
+                        href="{{route('api.customers.index')}}" role="button" data-bs-toggle="collapse"
                         aria-expanded="{{ Request::segment(2) == 'contact-details' ? 'true' : 'false' }}"
                         aria-controls="dashboard18">
                         <div class="d-flex align-items-center">
                             <span class="nav-link-icon"><i class="fas fa-cog"></i></span>
-                            <a href="#">
+                            <a href="{{route('api.customers.index')}}">
                             <span class="nav-link-text ps-1">Customer</span></a>
                         </div>
                     </a>

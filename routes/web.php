@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CustomerController;
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])
      ->name('login');
@@ -43,3 +44,4 @@ Route::get('/', function () {
 Route::prefix('/admin')->name('admin.')->middleware(['web', 'auth'])->group(function () {
      Route::get('/', [AdminController::class, 'index'])->name('index');
 });
+
