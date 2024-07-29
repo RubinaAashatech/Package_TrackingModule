@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\AdminController;
+// use App\Http\Controllers\ReceiverController;
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])
      ->name('login');
@@ -43,3 +44,11 @@ Route::get('/', function () {
 Route::prefix('/admin')->name('admin.')->middleware(['web', 'auth'])->group(function () {
      Route::get('/', [AdminController::class, 'index'])->name('index');
 });
+
+// Route::get('receivers', [ReceiverController::class, 'index'])->name('receivers.index');
+// Route::get('receivers/create', [ReceiverController::class, 'create'])->name('receivers.create');
+// Route::post('receivers', [ReceiverController::class, 'store'])->name('receivers.store');
+// Route::get('receivers/{receiver}', [ReceiverController::class, 'show'])->name('receivers.show');
+// Route::get('receivers/{receiver}/edit', [ReceiverController::class, 'edit'])->name('receivers.edit');
+// Route::put('receivers/{receiver}', [ReceiverController::class, 'update'])->name('receivers.update');
+// Route::delete('receivers/{receiver}', [ReceiverController::class, 'destroy'])->name('receivers.destroy');

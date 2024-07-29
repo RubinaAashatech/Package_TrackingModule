@@ -74,12 +74,12 @@
                         </div>
                     <li class="nav-item">
                         <a class=" {{ Request::segment(2) == 'site-settings' ? '' : 'collapsed' }}"
-                            href="#" role="button" data-bs-toggle="collapse"
+                            href="{{ route('api.receivers.index') }}" role="button" data-bs-toggle="collapse"
                             aria-expanded="{{ Request::segment(2) == 'site-settings' ? 'true' : 'false' }}"
                             aria-controls="dashboard6">
                             <div class="d-flex align-items-center">
                                 <span class="nav-link-icon"><i class="fas fa-list"></i></span>
-                                <a href="#">
+                                <a href="{{ route('api.receivers.index') }}">
                                 <span class="nav-link-text ps-1">Receiver</span></a>
                             </div>
                         </a>

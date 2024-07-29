@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ReceiverController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +18,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('receivers', [ReceiverController::class, 'index'])->name('api.receivers.index');
+Route::get('receivers/create', [ReceiverController::class, 'create'])->name('api.receivers.create');
+Route::post('receivers', [ReceiverController::class, 'store'])->name('api.receivers.store');
+Route::get('receivers/{receiver}', [ReceiverController::class, 'show'])->name('api.receivers.show');
+Route::get('receivers/{receiver}/edit', [ReceiverController::class, 'edit'])->name('api.receivers.edit');
+Route::put('receivers/{receiver}', [ReceiverController::class, 'update'])->name('api.receivers.update');
+Route::delete('receivers/{receiver}', [ReceiverController::class, 'destroy'])->name('api.receivers.destroy');
