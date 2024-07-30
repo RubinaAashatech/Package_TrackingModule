@@ -1,13 +1,12 @@
 <?php
-namespace App\Http\Controllers;
-use App\Models\Contact;
-use App\Models\VisitorBook;
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\StudentDetail;
-use App\Models\BlogPostsCategory;
+
 class AdminController extends Controller
 {
-    //
     public function __construct()
     {
         $this->middleware('auth');

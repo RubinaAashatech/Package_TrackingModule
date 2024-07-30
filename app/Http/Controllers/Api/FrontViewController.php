@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Models\Parcel;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Parcel;
 use Illuminate\View\View;
 
 class FrontViewController extends Controller
 {
+
     public function index(): View
     {
         return view('index');
@@ -19,7 +21,7 @@ class FrontViewController extends Controller
         'tracking_number' => 'required|string',
     ]);
 
-    $parcel = Parcel::with('latestTrackingUpdate')
+    $parcel = Parcel::with('latestTrackingUpdate', 'receiver')
         ->where('tracking_number', $request->tracking_number)
         ->first();
 
@@ -30,6 +32,7 @@ class FrontViewController extends Controller
     return response()->json([
         'parcel' => $parcel,
         'latest_update' => $parcel->latestTrackingUpdate,
+        'receiver' => $parcel->receiver
     ]);
 }
 }

@@ -2,12 +2,13 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\ReceiverController;
-use App\Http\Controllers\TrackingUpdateController;
-use App\Http\Controllers\ParcelController;
-use App\Http\Controllers\ParcelHistoryController;
-use App\Http\Controllers\FrontViewController;
+use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\ReceiverController;
+use App\Http\Controllers\Api\TrackingUpdateController;
+use App\Http\Controllers\Api\ParcelController;
+use App\Http\Controllers\Api\ParcelHistoryController;
+use App\Http\Controllers\Api\FrontViewController;
+use App\Http\Controllers\Api\AuthController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,14 +23,6 @@ use App\Http\Controllers\FrontViewController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::get('customers', [CustomerController::class, 'index'])->name('api.customers.index');
-Route::get('customers/create', [CustomerController::class, 'create'])->name('api.customers.create');
-Route::post('customers', [CustomerController::class, 'store'])->name('api.customers.store');
-Route::get('customers/{customer}', [CustomerController::class, 'show'])->name('api.customers.show');
-Route::get('customers/{customer}/edit', [CustomerController::class, 'edit'])->name('api.customers.edit');
-Route::put('customers/{customer}', [CustomerController::class, 'update'])->name('api.customers.update');
-Route::delete('customers/{customer}', [CustomerController::class, 'destroy'])->name('api.customers.destroy');
 
 Route::get('customers', [CustomerController::class, 'index'])->name('api.customers.index');
 Route::get('customers/create', [CustomerController::class, 'create'])->name('api.customers.create');
@@ -69,3 +62,4 @@ Route::post('parcel-histories', [ParcelHistoryController::class, 'store'])->name
 
 Route::post('/track', [FrontViewController::class, 'track'])->name('api.track');
 Route::get('/', [FrontViewController::class, 'index'])->name('index');
+Route::post('/login', [AuthController::class, 'login']);

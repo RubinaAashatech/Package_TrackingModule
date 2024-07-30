@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Models\Customer;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Customer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class CustomerController extends Controller
 {
-    /**
+     /**
      * Display a listing of the customers.
      *
      * @return JsonResponse|View
