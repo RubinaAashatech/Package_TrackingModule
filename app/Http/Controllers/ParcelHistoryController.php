@@ -1,86 +1,50 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use App\Models\ParcelHistory;
-use App\Http\Controllers\Controller;
+use App\Models\Parcel;
+use App\Models\TrackingUpdate;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class ParcelHistoryController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Display a listing of the parcel histories.
      */
-    public function index()
+    public function index(): View
     {
-        //
+        $parcels = Parcel::with(['latestTrackingUpdate'])
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return view('admin.parcelhistory.index', compact('parcels'));
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Show the form for creating a new tracking update.
      */
-    public function create()
+    public function create(): View
     {
-        //
+        $parcels = Parcel::all();
+        return view('admin.parcelhistory.create', compact('parcels'));
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Store a newly created tracking update in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        //
-    }
+        $validated = $request->validate([
+            'parcel_id' => 'required|exists:parcels,id',
+            'status' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
+            'description' => 'nullable|string',
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\ParcelHistory  $parcelHistory
-     * @return \Illuminate\Http\Response
-     */
-    public function show(ParcelHistory $parcelHistory)
-    {
-        //
-    }
+        TrackingUpdate::create($validated);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\ParcelHistory  $parcelHistory
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ParcelHistory $parcelHistory)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ParcelHistory  $parcelHistory
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, ParcelHistory $parcelHistory)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\ParcelHistory  $parcelHistory
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(ParcelHistory $parcelHistory)
-    {
-        //
+        return redirect()->route('api.parcel-histories.index')
+            ->with('success', 'Tracking update created successfully.');
     }
 }

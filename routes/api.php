@@ -6,6 +6,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ReceiverController;
 use App\Http\Controllers\TrackingUpdateController;
 use App\Http\Controllers\ParcelController;
+use App\Http\Controllers\ParcelHistoryController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -60,3 +61,11 @@ Route::get('parcels/{parcel}', [ParcelController::class, 'show'])->name('api.par
 Route::get('parcels/{parcel}/edit', [ParcelController::class, 'edit'])->name('api.parcels.edit');
 Route::put('parcels/{parcel}', [ParcelController::class, 'update'])->name('api.parcels.update');
 Route::delete('parcels/{parcel}', [ParcelController::class, 'destroy'])->name('api.parcels.destroy');
+
+Route::get('parcel-histories', [ParcelHistoryController::class, 'index'])->name('api.parcel-histories.index');
+
+// Route for creating a new parcel history (show the form)
+Route::get('parcel-histories/create', [ParcelHistoryController::class, 'create'])->name('api.parcel-histories.create');
+
+// Route for storing a new parcel history
+Route::post('parcel-histories', [ParcelHistoryController::class, 'store'])->name('api.parcel-histories.store');
