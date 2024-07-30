@@ -1,6 +1,3 @@
-@extends('layouts.app')
-
-@section('content')
 <div class="container">
     <h1 class="text-center mb-4">Track Your Parcel</h1>
     <div class="row justify-content-center">
@@ -21,8 +18,6 @@
     <div id="result" class="mt-4"></div>
 </div>
 
-@endsection
-
 @push('scripts')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -36,14 +31,23 @@ $(document).ready(function() {
             method: 'POST',
             data: { tracking_number: trackingNumber },
             success: function(response) {
+                var parcel = response.parcel;
+                var latestUpdate = response.latest_update;
+                
                 var html = '<div class="card">' +
                     '<div class="card-body">' +
                     '<h5 class="card-title">Parcel Information</h5>' +
-                    '<p><strong>Tracking Number:</strong> ' + response.parcel.tracking_number + '</p>' +
-                    '<p><strong>Carrier:</strong> ' + response.parcel.carrier + '</p>' +
-                    '<p><strong>Status:</strong> ' + (response.latest_update ? response.latest_update.status : 'N/A') + '</p>' +
-                    '<p><strong>Current Location:</strong> ' + (response.latest_update ? response.latest_update.location : 'N/A') + '</p>' +
-                    '<p><strong>Last Update:</strong> ' + (response.latest_update ? response.latest_update.created_at : 'N/A') + '</p>' +
+                    '<p><strong>Tracking Number:</strong> ' + parcel.tracking_number + '</p>' +
+                    '<p><strong>Carrier:</strong> ' + parcel.carrier + '</p>' +
+                    '<p><strong>Sending Date:</strong> ' + parcel.sending_date + '</p>' +
+                    '<p><strong>Weight:</strong> ' + parcel.weight + ' kg</p>' +
+                    '<p><strong>Status:</strong> ' + parcel.status + '</p>' +
+                    '<p><strong>Estimated Delivery Date:</strong> ' + parcel.estimated_delivery_date + '</p>' +
+                    '<h6 class="mt-4">Latest Update</h6>' +
+                    '<p><strong>Status:</strong> ' + (latestUpdate ? latestUpdate.status : 'N/A') + '</p>' +
+                    '<p><strong>Location:</strong> ' + (latestUpdate ? latestUpdate.location : 'N/A') + '</p>' +
+                    '<p><strong>Description:</strong> ' + (latestUpdate ? latestUpdate.description : 'N/A') + '</p>' +
+                    '<p><strong>Last Updated:</strong> ' + (latestUpdate ? latestUpdate.created_at : 'N/A') + '</p>' +
                     '</div></div>';
                 $('#result').html(html);
             },
