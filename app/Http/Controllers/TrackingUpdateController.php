@@ -101,4 +101,20 @@ class TrackingUpdateController extends Controller
         return redirect()->route('api.tracking-updates.index')
             ->with('success', 'Tracking update deleted successfully.');
     }
+
+    public function getTrackingInfo($trackingNumber)
+    {
+        // Fetch the parcel data based on the tracking number
+        $parcel = Parcel::where('tracking_number', $trackingNumber)->first();
+
+        if (!$parcel) {
+            return response()->json(['message' => 'Tracking number not found'], 404);
+        }
+
+        // Return the relevant tracking data
+        return response()->json([
+            'status' => $parcel->status,
+            'location' => $parcel->location,
+        ]);
+    }
 }
