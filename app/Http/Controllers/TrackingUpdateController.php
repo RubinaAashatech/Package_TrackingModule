@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\TrackingUpdate;
 use App\Models\Parcel;
 use App\Models\Customer;
+use App\Models\Receiver;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -26,8 +27,8 @@ class TrackingUpdateController extends Controller
     public function create(): View
     {
         $parcels = Parcel::all();
-        $customers = Customer::all();
-        return view('admin.trackingupdates.create', compact('parcels','customers'));
+        $receivers = Receiver::all();
+        return view('admin.trackingupdates.create', compact('parcels','receivers'));
     }
 
     /**
@@ -40,14 +41,21 @@ class TrackingUpdateController extends Controller
             'status' => 'required|string|max:255',
             'location' => 'required|string|max:255',
             'description' => 'nullable|string',
+            'tracking_number' => 'nullable|string|max:255', // You can remove this if tracking_number is not stored
         ]);
-
-        TrackingUpdate::create($validated);
-
+    
+        TrackingUpdate::create([
+            'parcel_id' => $validated['parcel_id'],
+            'status' => $validated['status'],
+            'location' => $validated['location'],
+            'description' => $validated['description'],
+            'tracking_number' => $validated['tracking_number'] ?? null, // Only if you are storing it
+        ]);
+    
         return redirect()->route('api.tracking-updates.index')
             ->with('success', 'Tracking update created successfully.');
     }
-
+    
     /**
      * Display the specified tracking update.
      */

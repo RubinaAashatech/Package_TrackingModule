@@ -19,12 +19,12 @@
         @csrf
 
         <div class="form-group">
-            <label for="customer_id">Customers</label>
-            <select name="customer_id" id="customer_id" class="form-control" required>
-                <option value="">Select a Customer</option>
-                @foreach($customers as $customer)
-                    <option value="{{ $customer->id }}" data-tracking="{{ $customer->parcels->first()->tracking_number ?? '' }}">
-                        {{ $customer->fullname }}
+            <label for="parcel_id">Receiver</label>
+            <select name="parcel_id" id="parcel_id" class="form-control" required>
+                <option value="">Select a Receiver</option>
+                @foreach($parcels as $parcel)
+                    <option value="{{ $parcel->id }}" data-tracking="{{ $parcel->tracking_number }}">
+                        {{ $parcel->receiver->fullname ?? 'Unknown Receiver' }}
                     </option>
                 @endforeach
             </select>
@@ -56,11 +56,11 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const customerSelect = document.getElementById('customer_id');
+        const parcelSelect = document.getElementById('parcel_id');
         const trackingNumberInput = document.getElementById('tracking_number');
 
-        customerSelect.addEventListener('change', function() {
-            const selectedOption = customerSelect.options[customerSelect.selectedIndex];
+        parcelSelect.addEventListener('change', function() {
+            const selectedOption = parcelSelect.options[parcelSelect.selectedIndex];
             const trackingNumber = selectedOption.getAttribute('data-tracking');
             trackingNumberInput.value = trackingNumber ? trackingNumber : '';
         });
