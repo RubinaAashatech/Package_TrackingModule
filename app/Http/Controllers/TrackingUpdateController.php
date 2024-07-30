@@ -3,84 +3,94 @@
 namespace App\Http\Controllers;
 
 use App\Models\TrackingUpdate;
-use App\Http\Controllers\Controller;
+use App\Models\Parcel;
+use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class TrackingUpdateController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Display a listing of the tracking updates.
      */
-    public function index()
+    public function index(): View
     {
-        //
+        $trackingUpdates = TrackingUpdate::with('parcel')->latest()->paginate(10);
+        return view('admin.trackingupdates.index', compact('trackingUpdates'));
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Show the form for creating a new tracking update.
      */
-    public function create()
+    public function create(): View
     {
-        //
+        $parcels = Parcel::all();
+        $customers = Customer::all();
+        return view('admin.trackingupdates.create', compact('parcels','customers'));
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Store a newly created tracking update in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        //
+        $validated = $request->validate([
+            'parcel_id' => 'required|exists:parcels,id',
+            'status' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
+            'description' => 'nullable|string',
+        ]);
+
+        TrackingUpdate::create($validated);
+
+        return redirect()->route('api.tracking-updates.index')
+            ->with('success', 'Tracking update created successfully.');
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\TrackingUpdate  $trackingUpdate
-     * @return \Illuminate\Http\Response
+     * Display the specified tracking update.
      */
-    public function show(TrackingUpdate $trackingUpdate)
+    // public function show(TrackingUpdate $trackingUpdate): View
+    // {
+    //      return view('admin.trackingupdates.show', compact('trackingUpdate'));
+    // }
+
+    /**
+     * Show the form for editing the specified tracking update.
+     */
+    public function edit(TrackingUpdate $trackingUpdate): View
     {
-        //
+        $parcels = Parcel::all();
+        return view('admin.trackingupdates.update', compact('trackingUpdate', 'parcels'));
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\TrackingUpdate  $trackingUpdate
-     * @return \Illuminate\Http\Response
+     * Update the specified tracking update in storage.
      */
-    public function edit(TrackingUpdate $trackingUpdate)
+    public function update(Request $request, TrackingUpdate $trackingUpdate): RedirectResponse
     {
-        //
+        $validated = $request->validate([
+            'parcel_id' => 'required|exists:parcels,id',
+            'status' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
+            'description' => 'nullable|string',
+        ]);
+
+        $trackingUpdate->update($validated);
+
+        return redirect()->route('api.tracking-updates.index')
+            ->with('success', 'Tracking update updated successfully.');
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\TrackingUpdate  $trackingUpdate
-     * @return \Illuminate\Http\Response
+     * Remove the specified tracking update from storage.
      */
-    public function update(Request $request, TrackingUpdate $trackingUpdate)
+    public function destroy(TrackingUpdate $trackingUpdate): RedirectResponse
     {
-        //
-    }
+        $trackingUpdate->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\TrackingUpdate  $trackingUpdate
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(TrackingUpdate $trackingUpdate)
-    {
-        //
+        return redirect()->route('api.tracking-updates.index')
+            ->with('success', 'Tracking update deleted successfully.');
     }
 }

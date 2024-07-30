@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerController;
+// use App\Http\Controllers\ReceiverController;
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])
      ->name('login');
