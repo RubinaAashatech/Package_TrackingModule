@@ -169,12 +169,12 @@
                                 </div>
                                 <li class="nav-item">
                                     <a class="{{ Request::segment(2) == 'contact-details' ? '' : 'collapsed' }}"
-                                        href="#" role="button" data-bs-toggle="collapse"
+                                        href="{{ route('api.parcel-histories.index') }}" role="button" data-bs-toggle="collapse"
                                         aria-expanded="{{ Request::segment(2) == 'contact-details' ? 'true' : 'false' }}"
                                         aria-controls="dashboard18">
                                         <div class="d-flex align-items-center">
                                             <span class="nav-link-icon"><i class="fas fa-cogs"></i></span>
-                                            <a href="#">
+                                            <a href="{{ route('api.parcel-histories.index') }}">
                                             <span class="nav-link-text ps-1">Parcel Histories</span></a>
                                         </div>
                                     </a>

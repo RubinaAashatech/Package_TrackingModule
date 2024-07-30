@@ -46,4 +46,9 @@ class Parcel extends Model
     {
         return $this->belongsTo(Receiver::class);
     }
+
+    public function latestTrackingUpdate()
+{
+    return $this->hasOne(TrackingUpdate::class)->latest();
+}
 }
