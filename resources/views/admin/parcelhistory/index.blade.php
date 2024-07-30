@@ -44,8 +44,5 @@
             @endforelse
         </tbody>
     </table>
-
-    {{-- Pagination links --}}
-    {{ $parcels->links() }}
 </div>
 @endsection
