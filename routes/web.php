@@ -42,6 +42,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/', function () {
+     return view('index');
+ });
+
 Route::prefix('/admin')->name('admin.')->middleware(['web', 'auth'])->group(function () {
      Route::get('/', [AdminController::class, 'index'])->name('index');
 });
