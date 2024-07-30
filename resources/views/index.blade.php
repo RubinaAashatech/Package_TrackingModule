@@ -1,3 +1,6 @@
+@extends('layouts.app')
+
+@section('content')
 <div class="container">
     <h1 class="text-center mb-4">Track Your Parcel</h1>
     <div class="row justify-content-center">
@@ -5,6 +8,7 @@
             <div class="card">
                 <div class="card-body">
                     <form id="trackingForm">
+                        @csrf
                         <div class="form-group">
                             <label for="tracking_number">Tracking Number</label>
                             <input type="text" class="form-control" id="tracking_number" name="tracking_number" required>
@@ -17,19 +21,27 @@
     </div>
     <div id="result" class="mt-4"></div>
 </div>
+@endsection
 
 @push('scripts')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     $('#trackingForm').submit(function(e) {
         e.preventDefault();
         var trackingNumber = $('#tracking_number').val();
         
         $.ajax({
-            url: '/api/track',
+            url: '{{ route("api.track") }}',
             method: 'POST',
             data: { tracking_number: trackingNumber },
+            dataType: 'json',
             success: function(response) {
                 var parcel = response.parcel;
                 var latestUpdate = response.latest_update;
@@ -51,8 +63,9 @@ $(document).ready(function() {
                     '</div></div>';
                 $('#result').html(html);
             },
-            error: function(xhr) {
-                $('#result').html('<div class="alert alert-danger">Parcel not found</div>');
+            error: function(xhr, status, error) {
+                console.error('Error:', status, error);
+                $('#result').html('<div class="alert alert-danger">Parcel not found or an error occurred</div>');
             }
         });
     });

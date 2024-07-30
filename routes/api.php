@@ -67,5 +67,5 @@ Route::get('parcel-histories', [ParcelHistoryController::class, 'index'])->name(
 Route::get('parcel-histories/create', [ParcelHistoryController::class, 'create'])->name('api.parcel-histories.create');
 Route::post('parcel-histories', [ParcelHistoryController::class, 'store'])->name('api.parcel-histories.store');
 
-Route::post('/track', [FrontViewController::class, 'track']);
+Route::post('/track', [FrontViewController::class, 'track'])->name('api.track');
 Route::get('/', [FrontViewController::class, 'index'])->name('index');
