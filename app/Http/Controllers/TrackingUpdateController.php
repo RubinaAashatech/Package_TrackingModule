@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TrackingUpdate;
 use App\Models\Parcel;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -25,7 +26,8 @@ class TrackingUpdateController extends Controller
     public function create(): View
     {
         $parcels = Parcel::all();
-        return view('admin.trackingupdates.create', compact('parcels'));
+        $customers = Customer::all();
+        return view('admin.trackingupdates.create', compact('parcels','customers'));
     }
 
     /**
@@ -49,10 +51,10 @@ class TrackingUpdateController extends Controller
     /**
      * Display the specified tracking update.
      */
-    public function show(TrackingUpdate $trackingUpdate): View
-    {
-        // return view('admin.trackingupdates.show', compact('trackingUpdate'));
-    }
+    // public function show(TrackingUpdate $trackingUpdate): View
+    // {
+    //      return view('admin.trackingupdates.show', compact('trackingUpdate'));
+    // }
 
     /**
      * Show the form for editing the specified tracking update.

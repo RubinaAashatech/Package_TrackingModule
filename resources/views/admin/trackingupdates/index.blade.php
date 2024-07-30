@@ -34,9 +34,9 @@
                     <td>{{ $update->description }}</td>
                     <td>{{ $update->created_at->format('Y-m-d H:i:s') }}</td>
                     <td>
-                        <a href="{{ route('tracking-updates.show', $update) }}" class="btn btn-info btn-sm">View</a>
-                        <a href="{{ route('tracking-updates.edit', $update) }}" class="btn btn-warning btn-sm">Edit</a>
-                        <form action="{{ route('tracking-updates.destroy', $update) }}" method="POST" style="display:inline;">
+                        
+                        <a href="{{ route('api.tracking-updates.edit', $update) }}" class="btn btn-warning btn-sm">Edit</a>
+                        <form action="{{ route('api.tracking-updates.destroy', $update) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this tracking update?')">Delete</button>

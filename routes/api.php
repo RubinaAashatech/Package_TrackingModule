@@ -3,9 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ReceiverController;
 use App\Http\Controllers\TrackingUpdateController;
+use App\Http\Controllers\ParcelController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -52,3 +52,11 @@ Route::get('tracking-updates/{trackingUpdate}', [TrackingUpdateController::class
 Route::get('tracking-updates/{trackingUpdate}/edit', [TrackingUpdateController::class, 'edit'])->name('api.tracking-updates.edit');
 Route::put('tracking-updates/{trackingUpdate}', [TrackingUpdateController::class, 'update'])->name('api.tracking-updates.update');
 Route::delete('tracking-updates/{trackingUpdate}', [TrackingUpdateController::class, 'destroy'])->name('api.tracking-updates.destroy');
+
+Route::get('parcels', [ParcelController::class, 'index'])->name('api.parcels.index');
+Route::get('parcels/create', [ParcelController::class, 'create'])->name('api.parcels.create');
+Route::post('parcels', [ParcelController::class, 'store'])->name('api.parcels.store');
+Route::get('parcels/{parcel}', [ParcelController::class, 'show'])->name('api.parcels.show');
+Route::get('parcels/{parcel}/edit', [ParcelController::class, 'edit'])->name('api.parcels.edit');
+Route::put('parcels/{parcel}', [ParcelController::class, 'update'])->name('api.parcels.update');
+Route::delete('parcels/{parcel}', [ParcelController::class, 'destroy'])->name('api.parcels.destroy');
