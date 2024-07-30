@@ -32,13 +32,48 @@ class ParcelController extends Controller
      *
      * @return View
      */
-    public function create(): View
+    public function create(Request $request)
     {
         $customers = Customer::all();
         $receivers = Receiver::all();
-        return view('admin.parcels.create', compact('customers', 'receivers'));
+        
+        $selectedCustomer = null;
+        $selectedReceiver = null;
+        $receiverCountry = '';
+        $receiverState = '';
+        $receiverCity = '';
+        $receiverStreetAddress = '';
+        $receiverPostalCode = '';
+    
+        if ($request->filled('customer_id')) {
+            $selectedCustomer = Customer::find($request->input('customer_id'));
+            // You can remove fetching customer address if it's no longer required
+        }
+    
+        if ($request->filled('receiver_id')) {
+            $selectedReceiver = Receiver::find($request->input('receiver_id'));
+            if ($selectedReceiver) {
+                $receiverCountry = $selectedReceiver->country;
+                $receiverState = $selectedReceiver->state;
+                $receiverCity = $selectedReceiver->city;
+                $receiverStreetAddress = $selectedReceiver->street_address;
+                $receiverPostalCode = $selectedReceiver->postal_code;
+            }
+        }
+    
+        return view('admin.parcels.create', compact(
+            'customers', 
+            'receivers', 
+            'selectedCustomer', 
+            'selectedReceiver', 
+            'receiverCountry',
+            'receiverState',
+            'receiverCity',
+            'receiverStreetAddress',
+            'receiverPostalCode'
+        ));
     }
-
+    
     /**
      * Store a newly created parcel in storage.
      *

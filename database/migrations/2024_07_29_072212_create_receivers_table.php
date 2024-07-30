@@ -16,7 +16,11 @@ return new class extends Migration
         Schema::create('receivers', function (Blueprint $table) {
             $table->id();
             $table->string('fullname');
-            $table->string('address')->nullable();
+            $table->string('country');
+            $table->string('state');
+            $table->string('city');
+            $table->string('street_address')->nullable();
+            $table->string('postal_code');
             $table->string('phone_no');
             $table->string('email')->unique()->nullable();
             $table->timestamps();

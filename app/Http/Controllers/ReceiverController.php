@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+
 use App\Models\Receiver;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -22,8 +23,9 @@ class ReceiverController extends Controller
         $receivers = Receiver::all();
         return view('admin.receivers.index', compact('receivers'));
     }
+
     /**
-     * Show the form for creating a new receivers.
+     * Show the form for creating a new receiver.
      *
      * @return View
      */
@@ -31,8 +33,9 @@ class ReceiverController extends Controller
     {
         return view('admin.receivers.create');
     }
+
     /**
-     * Store a newly created customer in storage.
+     * Store a newly created receiver in storage.
      *
      * @param Request $request
      * @return JsonResponse|RedirectResponse
@@ -41,20 +44,28 @@ class ReceiverController extends Controller
     {
         $request->validate([
             'fullname' => 'required|string|max:255',
+            'country' => 'required|string|max:255',
+            'state' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
+            'street_address' => 'nullable|string|max:255',
+            'postal_code' => 'required|string|max:20',
             'phone_no' => 'required|string|max:255',
-            'address' => 'nullable|string|max:255',
             'email' => 'nullable|email|unique:receivers,email',
         ]);
+        
         $receiver = Receiver::create($request->all());
+
         if ($request->expectsJson()) {
             return response()->json($receiver, 201); // 201 Created
         }
+
         return redirect()->route('api.receivers.index')->with('success', 'Receiver added successfully.');
     }
+
     /**
-     * Display the specified receivers.
+     * Display the specified receiver.
      *
-     * @param Receiver $receivers
+     * @param Receiver $receiver
      * @param Request $request
      * @return JsonResponse|View
      */
@@ -63,44 +74,55 @@ class ReceiverController extends Controller
         if ($request->expectsJson()) {
             return response()->json($receiver);
         }
-        return view('admin.receivers.show', compact('receivers'));
+
+        return view('admin.receivers.show', compact('receiver'));
     }
+
     /**
-     * Show the form for editing the specified customer.
+     * Show the form for editing the specified receiver.
      *
-     * @param Receiver $receivers
+     * @param Receiver $receiver
      * @return View
      */
     public function edit(Receiver $receiver): View
     {
         return view('admin.receivers.update', compact('receiver'));
     }
+
     /**
-     * Update the specified customer in storage.
+     * Update the specified receiver in storage.
      *
      * @param Request $request
-     * @param Receiver $receivers
+     * @param Receiver $receiver
      * @return JsonResponse|RedirectResponse
      */
     public function update(Request $request, Receiver $receiver): JsonResponse|RedirectResponse
     {
         $request->validate([
             'fullname' => 'required|string|max:255',
+            'country' => 'required|string|max:255',
+            'state' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
+            'street_address' => 'nullable|string|max:255',
+            'postal_code' => 'required|string|max:20',
             'phone_no' => 'required|string|max:255',
-            'address' => 'nullable|string|max:255',
-            'email' => 'nullable|email|unique:customers,email,' . $receiver->id,
+            'email' => 'nullable|email|unique:receivers,email,' . $receiver->id,
         ]);
+
         $receiver->update($request->all());
+
         if ($request->expectsJson()) {
             return response()->json($receiver);
         }
-        return redirect()->route('api.receivers.index')->with('success', 'Customer updated successfully.');
+
+        return redirect()->route('api.receivers.index')->with('success', 'Receiver updated successfully.');
     }
+
     /**
-     * Remove the specified receivers from storage.
+     * Remove the specified receiver from storage.
      *
-     * @param Receiver $receivers
-     * @return JsonResponse
+     * @param Receiver $receiver
+     * @return JsonResponse|RedirectResponse
      */
     public function destroy(Receiver $receiver): RedirectResponse
     {
@@ -108,13 +130,7 @@ class ReceiverController extends Controller
             $receiver->delete();
             return redirect()->route('api.receivers.index')->with('success', 'Receiver deleted successfully.');
         } catch (\Exception $e) {
-            return redirect()->route('api.receivers.index')->with('error', 'Failed to delete customer.');
+            return redirect()->route('api.receivers.index')->with('error', 'Failed to delete receiver.');
         }
     }
 }
-
-
-
-
-
-

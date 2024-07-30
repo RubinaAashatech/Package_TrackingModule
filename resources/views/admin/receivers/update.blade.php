@@ -12,12 +12,28 @@
             <input type="text" name="fullname" id="fullname" class="form-control" value="{{ old('fullname', $receiver->fullname) }}" required>
         </div>
         <div class="form-group">
-            <label for="address">Address:</label>
-            <input type="text" name="address" id="address" class="form-control" value="{{ old('address', $receiver->address) }}">
+            <label for="country">Country:</label>
+            <input type="text" name="country" id="country" class="form-control" value="{{ old('country', $receiver->country) }}" required>
+        </div>
+        <div class="form-group">
+            <label for="state">State:</label>
+            <input type="text" name="state" id="state" class="form-control" value="{{ old('state', $receiver->state) }}" required>
+        </div>
+        <div class="form-group">
+            <label for="city">City:</label>
+            <input type="text" name="city" id="city" class="form-control" value="{{ old('city', $receiver->city) }}" required>
+        </div>
+        <div class="form-group">
+            <label for="street_address">Street Address:</label>
+            <input type="text" name="street_address" id="street_address" class="form-control" value="{{ old('street_address', $receiver->street_address) }}">
+        </div>
+        <div class="form-group">
+            <label for="postal_code">Postal Code:</label>
+            <input type="text" name="postal_code" id="postal_code" class="form-control" value="{{ old('postal_code', $receiver->postal_code) }}" required>
         </div>
         <div class="form-group">
             <label for="phone_no">Phone No:</label>
-            <input type="number" name="phone_no" id="phone_no" class="form-control" value="{{ old('phone_no', $receiver->phone_no) }}" min="1" required>
+            <input type="text" name="phone_no" id="phone_no" class="form-control" value="{{ old('phone_no', $receiver->phone_no) }}" required>
         </div>
         <div class="form-group">
             <label for="email">Email:</label>
@@ -27,4 +43,5 @@
         <a href="{{ route('api.receivers.index') }}" class="btn btn-secondary">Back to List</a>
     </form>
 </div>
-@endsection 
+
+@endsection
