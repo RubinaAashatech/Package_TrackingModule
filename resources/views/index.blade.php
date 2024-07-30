@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
 <div class="container">
     <h1 class="text-center mb-4">Track Your Parcel</h1>
@@ -22,7 +21,6 @@
     <div id="result" class="mt-4"></div>
 </div>
 @endsection
-
 @push('scripts')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -32,11 +30,9 @@ $(document).ready(function() {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-
     $('#trackingForm').submit(function(e) {
         e.preventDefault();
         var trackingNumber = $('#tracking_number').val();
-        
         $.ajax({
             url: '{{ route("api.track") }}',
             method: 'POST',
@@ -45,7 +41,6 @@ $(document).ready(function() {
             success: function(response) {
                 var parcel = response.parcel;
                 var latestUpdate = response.latest_update;
-                
                 var html = '<div class="card">' +
                     '<div class="card-body">' +
                     '<h5 class="card-title">Parcel Information</h5>' +
@@ -72,3 +67,12 @@ $(document).ready(function() {
 });
 </script>
 @endpush
+
+
+
+
+
+
+
+
+

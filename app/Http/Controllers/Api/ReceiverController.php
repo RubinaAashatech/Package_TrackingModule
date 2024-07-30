@@ -1,15 +1,18 @@
 <?php
-namespace App\Http\Controllers;
 
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
 use App\Models\Receiver;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
+
 class ReceiverController extends Controller
 {
-    /**
+     /**
      * Display a listing of the receivers.
      *
      * @return JsonResponse|View

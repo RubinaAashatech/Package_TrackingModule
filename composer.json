@@ -61,6 +61,10 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true
         }
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true

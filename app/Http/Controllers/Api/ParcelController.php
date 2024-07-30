@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Parcel;
 use App\Models\Receiver;
 use App\Models\Customer;
@@ -12,7 +13,7 @@ use Illuminate\View\View;
 
 class ParcelController extends Controller
 {
-    /**
+/**
      * Display a listing of the parcels.
      *
      * @return JsonResponse|View
@@ -179,3 +180,4 @@ class ParcelController extends Controller
         }
     }
 }
+

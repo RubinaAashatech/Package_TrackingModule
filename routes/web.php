@@ -9,8 +9,8 @@ use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\NewPasswordController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\FrontViewController;
+use App\Http\Controllers\Api\AdminController;
+use App\Http\Controllers\Api\FrontViewController;
 // use App\Http\Controllers\ReceiverController;
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])
@@ -38,7 +38,7 @@ Route::post('/email/verification-notification', [EmailVerificationNotificationCo
 Route::post('/user/confirm-password', [ConfirmablePasswordController::class, 'store'])
      ->middleware('auth')
      ->name('password.confirm');
-     
+
 Route::get('/', function () {
     return view('welcome');
 });

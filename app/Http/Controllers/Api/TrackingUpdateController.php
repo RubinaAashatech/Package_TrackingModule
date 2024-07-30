@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\TrackingUpdate;
 use App\Models\Parcel;
 use App\Models\Customer;
@@ -12,7 +13,7 @@ use Illuminate\View\View;
 
 class TrackingUpdateController extends Controller
 {
-    /**
+     /**
      * Display a listing of the tracking updates.
      */
     public function index(): View

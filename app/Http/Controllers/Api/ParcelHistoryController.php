@@ -1,6 +1,8 @@
 <?php
-namespace App\Http\Controllers;
 
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
 use App\Models\Parcel;
 use App\Models\TrackingUpdate;
 use Illuminate\Http\Request;
@@ -9,7 +11,7 @@ use Illuminate\Http\RedirectResponse;
 
 class ParcelHistoryController extends Controller
 {
-    /**
+     /**
      * Display a listing of the parcel histories.
      */
     public function index(): View
