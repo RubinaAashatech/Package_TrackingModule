@@ -91,9 +91,7 @@ class TrackingUpdateController extends Controller
             ->with('success', 'Tracking update updated successfully.');
     }
 
-    /**
-     * Remove the specified tracking update from storage.
-     */
+    
     public function destroy(TrackingUpdate $trackingUpdate): RedirectResponse
     {
         $trackingUpdate->delete();
