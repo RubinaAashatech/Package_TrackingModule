@@ -24,55 +24,60 @@
 @push('scripts')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-$(document).ready(function() {
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-    $('#trackingForm').submit(function(e) {
-        e.preventDefault();
-        var trackingNumber = $('#tracking_number').val();
-        $.ajax({
-            url: '{{ route("api.track") }}',
-            method: 'POST',
-            data: { tracking_number: trackingNumber },
-            dataType: 'json',
-            success: function(response) {
-                var parcel = response.parcel;
-                var latestUpdate = response.latest_update;
-                var html = '<div class="card">' +
-                    '<div class="card-body">' +
-                    '<h5 class="card-title">Parcel Information</h5>' +
-                    '<p><strong>Tracking Number:</strong> ' + parcel.tracking_number + '</p>' +
-                    '<p><strong>Carrier:</strong> ' + parcel.carrier + '</p>' +
-                    '<p><strong>Sending Date:</strong> ' + parcel.sending_date + '</p>' +
-                    '<p><strong>Weight:</strong> ' + parcel.weight + ' kg</p>' +
-                    '<p><strong>Status:</strong> ' + parcel.status + '</p>' +
-                    '<p><strong>Estimated Delivery Date:</strong> ' + parcel.estimated_delivery_date + '</p>' +
-                    '<h6 class="mt-4">Latest Update</h6>' +
-                    '<p><strong>Status:</strong> ' + (latestUpdate ? latestUpdate.status : 'N/A') + '</p>' +
-                    '<p><strong>Location:</strong> ' + (latestUpdate ? latestUpdate.location : 'N/A') + '</p>' +
-                    '<p><strong>Description:</strong> ' + (latestUpdate ? latestUpdate.description : 'N/A') + '</p>' +
-                    '<p><strong>Last Updated:</strong> ' + (latestUpdate ? latestUpdate.created_at : 'N/A') + '</p>' +
-                    '</div></div>';
-                $('#result').html(html);
-            },
-            error: function(xhr, status, error) {
-                console.error('Error:', status, error);
-                $('#result').html('<div class="alert alert-danger">Parcel not found or an error occurred</div>');
+    $(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+        $('#trackingForm').submit(function(e) {
+            e.preventDefault();
+            var trackingNumber = $('#tracking_number').val();
+            $.ajax({
+                url: '{{ route("api.track") }}',
+                method: 'POST',
+                data: { tracking_number: trackingNumber },
+                dataType: 'json',
+                success: function(response) {
+                    var parcel = response.parcel;
+                    var updates = response.tracking_updates; // All tracking updates
+                    var receiver = response.receiver;
+                    
+                    var html = '<div class="card">' +
+                        '<div class="card-body">' +
+                        '<h5 class="card-title">Parcel Information</h5>' +
+                        '<p><strong>Tracking Number:</strong> ' + parcel.tracking_number + '</p>' +
+                        '<p><strong>Carrier:</strong> ' + parcel.carrier + '</p>' +
+                        '<p><strong>Sending Date:</strong> ' + parcel.sending_date + '</p>' +
+                        '<p><strong>Weight:</strong> ' + parcel.weight + ' kg</p>' +
+                        '<p><strong>Status:</strong> ' + parcel.status + '</p>' +
+                        '<p><strong>Estimated Delivery Date:</strong> ' + parcel.estimated_delivery_date + '</p>' +
+                        '<h6 class="mt-4">Receiver Information</h6>' +
+                        '<p><strong>Receiver Name:</strong> ' + receiver.fullname  + '</p>' +
+                        '<h6 class="mt-4">Tracking Updates</h6>';
+    
+                    if (updates.length > 0) {
+                        updates.forEach(function(update) {
+                            html += '<div class="update-card">' +
+                                '<p><strong>Status:</strong> ' + update.status + '</p>' +
+                                '<p><strong>Last Updated:</strong> ' + update.created_at + '</p>' +
+                                '<hr>' +
+                                '</div>';
+                        });
+                    } else {
+                        html += '<p>No tracking updates available.</p>';
+                    }
+    
+                    html += '</div></div>';
+                    $('#result').html(html);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', status, error);
+                    $('#result').html('<div class="alert alert-danger">Parcel not found or an error occurred</div>');
+                }
+            });
+        });
     });
-});
-</script>
+    </script>
+    
 @endpush
-
-
-
-
-
-
-
-
-
