@@ -10,7 +10,7 @@
         </div>
     @endif
 
-    <a href="{{ route('api.tracking-updates.create') }}" class="btn btn-primary mb-3">Add New Tracking Update</a>
+    {{-- <a href="{{ route('api.tracking-updates.create') }}" class="btn btn-primary mb-3">Add New Tracking Update</a> --}}
 
     <table class="table table-bordered">
         <thead>
@@ -21,18 +21,20 @@
                 <th>Location</th>
                 <th>Description</th>
                 <th>Created At</th>
+                <th>Updated At</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             @foreach($trackingUpdates as $update)
                 <tr>
-                    <td>{{ $update->id }}</td>
-                    <td>{{ $update->parcel->tracking_number }}</td>
-                    <td>{{ $update->status }}</td>
+                    <td>{{ $parcel->id }}</td>
+                    <td>{{ $parcel->tracking_number }}</td>
+                    <td>{{ $parcel->status }}</td>
                     <td>{{ $update->location }}</td>
-                    <td>{{ $update->description }}</td>
-                    <td>{{ $update->created_at->format('Y-m-d H:i:s') }}</td>
+                    <td>{{ $parcel->description }}</td>
+                    <td>{{ $parcel->created_at->format('Y-m-d H:i:s') }}</td>
+                    <td>{{ $update->updated_at->format('Y-m-d H:i:s') }}</td>
                     <td>
                         
                         <a href="{{ route('api.tracking-updates.edit', $update) }}" class="btn btn-warning btn-sm">Edit</a>

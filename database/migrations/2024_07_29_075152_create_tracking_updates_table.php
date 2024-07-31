@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('parcel_id');
             $table->string('status');
-            $table->string('location');
+            $table->string('location')->nullable();
             $table->text('description')->nullable();
 
             // Foreign key constraint
