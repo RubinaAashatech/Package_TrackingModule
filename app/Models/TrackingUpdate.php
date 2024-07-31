@@ -46,7 +46,7 @@ class TrackingUpdate extends Model
         });
     }
 
-    public function parcels()
+    public function parcel()
     {
         return $this->belongsToMany(Parcel::class, 'parcel_tracking_update');
     }
