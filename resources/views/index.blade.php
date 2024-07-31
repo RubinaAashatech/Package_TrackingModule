@@ -1,19 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container my-5">
     <h1 class="text-center mb-4">Track Your Parcel</h1>
     <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm border-light">
                 <div class="card-body">
                     <form id="trackingForm">
                         @csrf
                         <div class="form-group">
                             <label for="tracking_number">Tracking Number</label>
-                            <input type="text" class="form-control" id="tracking_number" name="tracking_number" required>
+                            <input type="text" class="form-control" id="tracking_number" name="tracking_number" placeholder="Enter your tracking number" required>
                         </div>
-                        <button type="submit" class="btn btn-primary mt-3">Track Parcel</button>
+                        <button type="submit" class="btn btn-primary btn-block mt-3">Track Parcel</button>
                     </form>
                 </div>
             </div>
@@ -77,20 +77,6 @@
 </div>
 @endsection
 
-@push('styles')
-<style>
-    .bg-purple {
-        background-color: #4B0082;
-    }
-    .progress {
-        height: 5px;
-    }
-    .table-striped tbody tr:nth-of-type(odd) {
-        background-color: rgba(0,0,0,.05);
-    }
-</style>
-@endpush
-
 @push('scripts')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -116,25 +102,45 @@
                     var updates = response.tracking_updates;
                     var receiver = response.receiver;
 
-                    $('#awb-number').text(parcel.tracking_number);
-                    $('#delivery-date').text(parcel.estimated_delivery_date);
-                    $('#delivery-address').text(receiver.country + ', ' + receiver.city + ', ' + receiver.postal_code);
+                    var html = '<div class="card shadow-sm border-light">' +
+                        '<div class="card-body">' +
+                        '<h5 class="card-title">Parcel Information</h5>' +
+                        '<table class="table table-striped table-bordered">' +
+                        '<tbody>' +
+                        '<tr><th>Tracking Number</th><td>' + parcel.tracking_number + '</td></tr>' +
+                        '<tr><th>Carrier</th><td>' + parcel.carrier + '</td></tr>' +
+                        '<tr><th>Sending Date</th><td>' + parcel.sending_date + '</td></tr>' +
+                        '<tr><th>Weight</th><td>' + parcel.weight + ' kg</td></tr>' +
+                        '<tr><th>Status</th><td>' + parcel.status + '</td></tr>' +
+                        '<tr><th>Estimated Delivery Date</th><td>' + parcel.estimated_delivery_date + '</td></tr>' +
+                        '</tbody>' +
+                        '</table>' +
+                        '<h6 class="mt-4">Receiver Information</h6>' +
+                        '<table class="table table-striped table-bordered">' +
+                        '<tbody>' +
+                        '<tr><th>Receiver Name</th><td>' + receiver.fullname + '</td></tr>' +
+                        '</tbody>' +
+                        '</table>' +
+                        '<h6 class="mt-4">Tracking Updates</h6>' +
+                        '<table class="table table-striped table-bordered">' +
+                        '<thead>' +
+                        '<tr><th>Date & Time</th><th>Location</th><th>Activity</th></tr>' +
+                        '</thead>' +
+                        '<tbody>';
 
-                    // Update progress bar width based on parcel status
-                    var progressPercent = calculateProgressPercent(parcel.status);
-                    $('.progress-bar').css('width', progressPercent + '%');
-
-                    var updatesHtml = '';
                     updates.forEach(function(update) {
-                        updatesHtml += '<tr>' +
+                        html += '<tr>' +
                             '<td>' + update.created_at + '</td>' +
-                            '<td>' + update.location + '</td>' +  // Uncomment if location is available
+                            '<td>' + (update.location || 'N/A') + '</td>' +
                             '<td>' + update.status + '</td>' +
                             '</tr>';
                     });
-                    $('#tracking-updates').html(updatesHtml);
 
-                    $('#trackingDetails').show();
+                    html += '</tbody>' +
+                        '</table>' +
+                        '</div></div>';
+
+                    $('#result').html(html);
                 },
                 error: function(xhr, status, error) {
                     console.error('Error:', status, error);
