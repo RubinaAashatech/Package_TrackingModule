@@ -30,6 +30,7 @@
                 <th>Sending Date</th>
                 <th>Weight</th>
                 <th>Status</th>
+                <th>Description</th>
                 <th>Estimated Delivery Date</th>
                 <th>Actions</th>
             </tr>
@@ -50,6 +51,7 @@
                 <td>{{ $parcel->sending_date->format('Y-m-d') }}</td>
                 <td>{{ $parcel->weight }}</td>
                 <td>{{ $parcel->status }}</td>
+                <td>{{ $parcel->description }}</td>
                 <td>{{ $parcel->estimated_delivery_date->format('Y-m-d') }}</td>
                 <td>
                     <a href="{{ route('api.parcels.edit', $parcel) }}" class="btn btn-warning btn-sm">Edit</a>

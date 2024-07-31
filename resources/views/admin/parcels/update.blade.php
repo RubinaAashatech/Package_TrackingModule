@@ -74,6 +74,10 @@
             <input type="text" class="form-control" id="status" name="status" value="{{ old('status', $parcel->status) }}" required>
         </div>
         <div class="form-group">
+            <label for="description">description</label>
+            <input type="text" class="form-control" id="description" name="description" value="{{ old('description', $parcel->description) }}" >
+        </div>
+        <div class="form-group">
             <label for="estimated_delivery_date">Estimated Delivery Date</label>
             <input type="date" class="form-control" id="estimated_delivery_date" name="estimated_delivery_date" value="{{ old('estimated_delivery_date', $parcel->estimated_delivery_date->format('Y-m-d')) }}" required>
         </div>

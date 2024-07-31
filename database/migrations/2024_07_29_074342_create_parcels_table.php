@@ -22,6 +22,7 @@ return new class extends Migration
             $table->date('sending_date');
             $table->decimal('weight', 8, 2); 
             $table->string('status');
+            $table->string('description');
             $table->date('estimated_delivery_date');
 
             // Foreign key constraints

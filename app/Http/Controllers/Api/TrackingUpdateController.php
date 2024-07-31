@@ -40,7 +40,7 @@ class TrackingUpdateController extends Controller
         $validated = $request->validate([
             'parcel_id' => 'required|exists:parcels,id',
             'status' => 'required|string|max:255',
-            'location' => 'required|string|max:255',
+            'location' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'tracking_number' => 'nullable|string|max:255', // You can remove this if tracking_number is not stored
         ]);
@@ -82,7 +82,7 @@ class TrackingUpdateController extends Controller
         $validated = $request->validate([
             'parcel_id' => 'required|exists:parcels,id',
             'status' => 'required|string|max:255',
-            'location' => 'required|string|max:255',
+            'location' => 'nullable|string|max:255',
             'description' => 'nullable|string',
         ]);
 

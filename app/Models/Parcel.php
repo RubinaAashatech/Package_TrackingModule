@@ -15,6 +15,7 @@ class Parcel extends Model
         'sending_date',
         'weight',
         'status',
+        'description',
         'estimated_delivery_date',
     ];
 

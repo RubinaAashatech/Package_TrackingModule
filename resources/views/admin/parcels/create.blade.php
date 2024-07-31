@@ -71,6 +71,10 @@
             <input type="text" class="form-control" id="status" name="status" required>
         </div>
         <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" class="form-control" id="description" name="description" >
+        </div>
+        <div class="form-group">
             <label for="estimated_delivery_date">Estimated Delivery Date</label>
             <input type="date" class="form-control" id="estimated_delivery_date" name="estimated_delivery_date" required>
         </div>

@@ -90,6 +90,7 @@ class ParcelController extends Controller
             'sending_date' => 'required|date',
             'weight' => 'required|numeric',
             'status' => 'required|string|max:255',
+            'description' => 'nullable|string|max:255',
             'estimated_delivery_date' => 'required|date',
         ]);
 
@@ -146,6 +147,7 @@ class ParcelController extends Controller
             'sending_date' => 'required|date',
             'weight' => 'required|numeric|min:0',
             'status' => 'required|string|max:255',
+            'description' => 'nullable|string|max:255',
             'estimated_delivery_date' => 'required|date',
         ]);
 
