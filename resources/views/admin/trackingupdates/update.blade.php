@@ -32,12 +32,12 @@
 
         <div class="form-group">
             <label for="status">Status</label>
-            <input type="text" name="status" id="status" class="form-control" value="{{ $trackingUpdate->status }}" required>
+            <input type="text" name="status" id="status" class="form-control" value="{{ $trackingUpdate->status }}" readonly>
         </div>
 
         <div class="form-group">
             <label for="location">Location</label>
-            <input type="text" name="location" id="location" class="form-control" value="{{ $trackingUpdate->location }}" required>
+            <input type="text" name="location" id="location" class="form-control" value="{{ $trackingUpdate->location }}">
         </div>
 
         <div class="form-group">
