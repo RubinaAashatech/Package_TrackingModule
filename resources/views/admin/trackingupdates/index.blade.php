@@ -27,6 +27,9 @@
                 <input type="text" name="location" class="form-control" placeholder="Parcel Location">
             </div>
             <div class="col-md-4">
+                <input type="text" name="status" class="form-control" placeholder="Parcel Status" required>
+            </div>
+            <div class="col-md-4">
                 <button type="submit" class="btn btn-primary">Create Tracking</button>
             </div>
         </div>
