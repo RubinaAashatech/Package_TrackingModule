@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\TrackingUpdate;
 use App\Models\Parcel;
+use App\Models\Receiver;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -12,13 +13,15 @@ use Illuminate\View\View;
 class TrackingUpdateController extends Controller
 {
     public function index(): View
-    {
-        $trackingUpdates = TrackingUpdate::with('parcel')->latest()->paginate(10);
-        return view('admin.trackingupdates.index', compact('trackingUpdates'));
-    }
+{
+    $trackingUpdates = TrackingUpdate::with('parcel')->latest()->paginate(10);
+    $parcels = Parcel::with('receiver')->get();
+    return view('admin.trackingupdates.index', compact('trackingUpdates', 'parcels'));
+}
 
     public function updateOrCreate(Request $request): RedirectResponse
     {
+        $receivers = Receiver::all();
         $validated = $request->validate([
             'parcel_id' => 'required|exists:parcels,id',
             'location' => 'nullable|string|max:255',
@@ -43,7 +46,8 @@ class TrackingUpdateController extends Controller
     public function edit(TrackingUpdate $trackingUpdate): View
     {
         $parcels = Parcel::all();
-        return view('admin.trackingupdates.update', compact('trackingUpdate', 'parcels'));
+        $receivers = Receiver::all();
+        return view('admin.trackingupdates.update', compact('trackingUpdate', 'parcels','receivers'));
     }
 
     public function update(Request $request, TrackingUpdate $trackingUpdate): RedirectResponse

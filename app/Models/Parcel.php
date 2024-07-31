@@ -52,4 +52,9 @@ class Parcel extends Model
 {
     return $this->hasOne(TrackingUpdate::class)->latest();
 }
+
+public function trackingUpdates()
+{
+    return $this->belongsToMany(TrackingUpdate::class, 'parcel_tracking_update');
+}
 }

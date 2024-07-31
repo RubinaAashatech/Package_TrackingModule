@@ -21,9 +21,34 @@ class TrackingUpdate extends Model
     /**
      * Get the parcel that owns the tracking update.
      */
-    public function parcel()
+    protected static function booted()
     {
-        return $this->belongsTo(Parcel::class);
+        static::created(function ($trackingUpdate) {
+            $parcel = Parcel::find($trackingUpdate->parcel_id);
+            if ($parcel) {
+                $parcel->trackingUpdates()->attach($trackingUpdate->id);
+            }
+        });
+
+        static::updated(function ($trackingUpdate) {
+            $parcel = Parcel::find($trackingUpdate->parcel_id);
+            if ($parcel) {
+                // Ensure pivot table reflects the latest update
+                $parcel->trackingUpdates()->syncWithoutDetaching([$trackingUpdate->id]);
+            }
+        });
+
+        static::deleted(function ($trackingUpdate) {
+            $parcel = Parcel::find($trackingUpdate->parcel_id);
+            if ($parcel) {
+                $parcel->trackingUpdates()->detach($trackingUpdate->id);
+            }
+        });
+    }
+
+    public function parcels()
+    {
+        return $this->belongsToMany(Parcel::class, 'parcel_tracking_update');
     }
     
 }
