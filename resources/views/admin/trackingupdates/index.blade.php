@@ -24,10 +24,10 @@
                 </select>
             </div>
             <div class="col-md-4">
-                <input type="text" name="location" class="form-control" placeholder="Location">
+                <input type="text" name="location" class="form-control" placeholder="Parcel Location">
             </div>
             <div class="col-md-4">
-                <button type="submit" class="btn btn-primary">Update/Create Tracking</button>
+                <button type="submit" class="btn btn-primary">Create Tracking</button>
             </div>
         </div>
     </form>
