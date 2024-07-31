@@ -14,7 +14,9 @@ class TrackingUpdate extends Model
         'status',
         'location',
         'description',
+        'tracking_number',
     ];
+    
 
     /**
      * Get the parcel that owns the tracking update.
@@ -23,4 +25,5 @@ class TrackingUpdate extends Model
     {
         return $this->belongsTo(Parcel::class);
     }
+    
 }

@@ -17,41 +17,29 @@
 
     <form action="{{ route('api.tracking-updates.store') }}" method="POST">
         @csrf
-
         <div class="form-group">
-            <label for="parcel_id">Receiver</label>
-            <select name="parcel_id" id="parcel_id" class="form-control" required>
-                <option value="">Select a Receiver</option>
+            <label for="parcel_id">Parcel</label>
+            <select name="parcel_id" id="parcel_id" class="form-control">
                 @foreach($parcels as $parcel)
-                    <option value="{{ $parcel->id }}" data-tracking="{{ $parcel->tracking_number }}">
-                        {{ $parcel->receiver->fullname ?? 'Unknown Receiver' }}
-                    </option>
+                    <option value="{{ $parcel->id }}">{{ $parcel->tracking_number }}</option>
                 @endforeach
             </select>
         </div>
-
-        <div class="form-group">
-            <label for="tracking_number">Tracking Number</label>
-            <input type="text" name="tracking_number" id="tracking_number" class="form-control" readonly>
-        </div>
-
         <div class="form-group">
             <label for="status">Status</label>
             <input type="text" name="status" id="status" class="form-control" required>
         </div>
-
         <div class="form-group">
             <label for="location">Location</label>
-            <input type="text" name="location" id="location" class="form-control" required>
+            <input type="text" name="location" id="location" class="form-control">
         </div>
-
         <div class="form-group">
             <label for="description">Description</label>
-            <textarea name="description" id="description" class="form-control" rows="3"></textarea>
+            <textarea name="description" id="description" class="form-control"></textarea>
         </div>
-
-        <button type="submit" class="btn btn-primary">Create Tracking Update</button>
+        <button type="submit" class="btn btn-primary">Save</button>
     </form>
+    
 </div>
 
 <script>

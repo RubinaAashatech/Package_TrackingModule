@@ -10,13 +10,31 @@
         </div>
     @endif
 
-    {{-- <a href="{{ route('api.tracking-updates.create') }}" class="btn btn-primary mb-3">Add New Tracking Update</a> --}}
+    <form action="{{ route('api.tracking-updates.updateOrCreate') }}" method="POST" class="mb-4">
+        @csrf
+        <div class="form-row">
+            <div class="col-md-4">
+                <select name="parcel_id" class="form-control" required>
+                    <option value="">Select Parcel</option>
+                    @foreach(App\Models\Parcel::all() as $parcel)
+                        <option value="{{ $parcel->id }}">{{ $parcel->tracking_number }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-4">
+                <input type="text" name="location" class="form-control" placeholder="Location">
+            </div>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-primary">Update/Create Tracking</button>
+            </div>
+        </div>
+    </form>
 
     <table class="table table-bordered">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Parcel Tracking Number</th>
+                <th>Tracking Number</th>
                 <th>Status</th>
                 <th>Location</th>
                 <th>Description</th>
@@ -28,15 +46,14 @@
         <tbody>
             @foreach($trackingUpdates as $update)
                 <tr>
-                    <td>{{ $parcel->id }}</td>
-                    <td>{{ $parcel->tracking_number }}</td>
-                    <td>{{ $parcel->status }}</td>
+                    <td>{{ $update->id }}</td>
+                    <td>{{ $update->tracking_number }}</td>
+                    <td>{{ $update->status }}</td>
                     <td>{{ $update->location }}</td>
-                    <td>{{ $parcel->description }}</td>
-                    <td>{{ $parcel->created_at->format('Y-m-d H:i:s') }}</td>
+                    <td>{{ $update->description }}</td>
+                    <td>{{ $update->created_at->format('Y-m-d H:i:s') }}</td>
                     <td>{{ $update->updated_at->format('Y-m-d H:i:s') }}</td>
                     <td>
-                        
                         <a href="{{ route('api.tracking-updates.edit', $update) }}" class="btn btn-warning btn-sm">Edit</a>
                         <form action="{{ route('api.tracking-updates.destroy', $update) }}" method="POST" style="display:inline;">
                             @csrf
