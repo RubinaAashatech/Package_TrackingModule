@@ -67,10 +67,6 @@
             <input type="number" class="form-control" id="weight" name="weight" step="0.01" required>
         </div>
         <div class="form-group">
-            <label for="status">Status</label>
-            <input type="text" class="form-control" id="status" name="status" required>
-        </div>
-        <div class="form-group">
             <label for="description">Description</label>
             <input type="text" class="form-control" id="description" name="description" >
         </div>

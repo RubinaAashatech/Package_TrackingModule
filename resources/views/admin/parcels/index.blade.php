@@ -29,7 +29,6 @@
                 <th>Carrier</th>
                 <th>Sending Date</th>
                 <th>Weight</th>
-                <th>Status</th>
                 <th>Description</th>
                 <th>Estimated Delivery Date</th>
                 <th>Actions</th>
@@ -50,7 +49,6 @@
                 <td>{{ $parcel->carrier }}</td>
                 <td>{{ $parcel->sending_date->format('Y-m-d') }}</td>
                 <td>{{ $parcel->weight }}</td>
-                <td>{{ $parcel->status }}</td>
                 <td>{{ $parcel->description }}</td>
                 <td>{{ $parcel->estimated_delivery_date->format('Y-m-d') }}</td>
                 <td>

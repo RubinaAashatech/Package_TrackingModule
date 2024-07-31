@@ -18,7 +18,6 @@
                 <th>Parcel ID</th>
                 <th>Tracking Number</th>
                 <th>Carrier</th>
-                <th>Previous Status</th>
                 <th>Current Status</th>
                 <th>Current Location</th>
                 <th>Description</th>
@@ -31,7 +30,6 @@
                     <td>{{ $parcel->id }}</td>
                     <td>{{ $parcel->tracking_number }}</td>
                     <td>{{ $parcel->carrier }}</td>
-                    <td>{{ $parcel->status }}</td>
                     <td>{{ $parcel->latestTrackingUpdate->status ?? 'N/A' }}</td>
                     <td>{{ $parcel->latestTrackingUpdate->location ?? 'N/A' }}</td>
                     <td>{{ $parcel->latestTrackingUpdate->description ?? 'N/A' }}</td>

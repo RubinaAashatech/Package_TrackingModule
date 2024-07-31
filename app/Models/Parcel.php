@@ -14,7 +14,6 @@ class Parcel extends Model
         'carrier',
         'sending_date',
         'weight',
-        'status',
         'description',
         'estimated_delivery_date',
     ];
@@ -26,6 +25,17 @@ class Parcel extends Model
 
     protected static function booted()
     {
+        static::created(function ($parcel) {
+            // Create a default tracking update when a new parcel is created
+            TrackingUpdate::create([
+                'parcel_id' => $parcel->id,
+                'status' => 'New',
+                'location' => $parcel->location ?? '',
+                'description' => $parcel->description,
+                'tracking_number' => $parcel->tracking_number,
+            ]);
+        });
+
         static::creating(function ($parcel) {
             if (empty($parcel->tracking_number)) {
                 $parcel->tracking_number = static::generateTrackingNumber();

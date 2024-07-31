@@ -70,10 +70,6 @@
             <input type="number" class="form-control" id="weight" name="weight" step="0.01" value="{{ old('weight', $parcel->weight) }}" required>
         </div>
         <div class="form-group">
-            <label for="status">Status</label>
-            <input type="text" class="form-control" id="status" name="status" value="{{ old('status', $parcel->status) }}" required>
-        </div>
-        <div class="form-group">
             <label for="description">description</label>
             <input type="text" class="form-control" id="description" name="description" value="{{ old('description', $parcel->description) }}" >
         </div>

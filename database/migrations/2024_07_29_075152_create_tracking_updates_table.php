@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('tracking_updates', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('parcel_id');
-            $table->string('status');
+            $table->string('status')->nullable();
             $table->string('location')->nullable();
             $table->text('description')->nullable();
 

@@ -3,79 +3,96 @@
 @section('content')
 <div class="container my-5">
     <h1 class="text-center mb-4">Track Your Parcel</h1>
-    <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
-            <div class="card shadow-sm border-light">
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
                 <div class="card-body">
                     <form id="trackingForm">
                         @csrf
                         <div class="form-group">
-                            <label for="tracking_number">Tracking Number</label>
-                            <input type="text" class="form-control" id="tracking_number" name="tracking_number" placeholder="Enter your tracking number" required>
+                            <label for="tracking_number" class="text-success font-weight-bold">Tracking Number</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control border-success" id="tracking_number" name="tracking_number" placeholder="Enter your tracking number" required>
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-success">Track Parcel</button>
+                                </div>
+                            </div>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block mt-3">Track Parcel</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
-<div id="trackingDetails" class="container mt-4" style="display: none;">
-    <div class="card">
-        <div class="card-header bg-purple text-white">
-            <h2 class="mb-0">AWB No: <span id="awb-number"></span></h2>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-12 mb-4">
-                    <div class="progress">
-                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <div class="d-flex justify-content-between mt-2">
-                        <span>Label Created</span>
-                        <span>Pick Up</span>
-                        <span>In Transit</span>
-                        <span>Out for Delivery</span>
-                        <span>Delivered</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-8">
-                    <h4 class="mb-3">Tracking Details</h4>
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead class="bg-purple text-white">
-                                <tr>
-                                    <th>Date & Time</th>
-                                    <th>Location</th>
-                                    <th>Activity</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tracking-updates">
-                                <!-- Tracking updates will be inserted here -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-header bg-purple text-white">
-                            <h5 class="mb-0">Consignee Information</h5>
-                        </div>
-                        <div class="card-body">
-                            <p><strong>Delivery Date:</strong> <span id="delivery-date"></span></p>
-                            <p><strong>Delivery Address:</strong> <span id="delivery-address"></span></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div id="result" class="mt-4">
+        <!-- The results will be inserted here -->
     </div>
 </div>
 @endsection
+
+@push('styles')
+<style>
+    body {
+        background-color: #f8f9fa;
+        font-family: 'Arial', sans-serif;
+    }
+    .container {
+        max-width: 1000px;
+    }
+    h1 {
+        color: #2c3e50;
+        font-weight: 700;
+    }
+    .card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        transition: all 0.3s ease;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+    }
+    .card-title {
+        color: #3498db;
+        font-weight: bold;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 10px;
+    }
+    .table th {
+        background-color: #f1f8ff;
+        color: #2c3e50;
+    }
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f8f9fa;
+    }
+    .alert-danger {
+        background-color: #ffebee;
+        color: #c62828;
+        border-radius: 10px;
+        border: none;
+    }
+    .btn-success {
+        background-color: #2ecc71;
+        border-color: #2ecc71;
+        transition: all 0.3s ease;
+    }
+    .btn-success:hover {
+        background-color: #27ae60;
+        border-color: #27ae60;
+        transform: translateY(-2px);
+    }
+    .info-section {
+        margin-bottom: 1.5rem;
+    }
+    .info-title {
+        font-weight: bold;
+        color: #3498db;
+        margin-bottom: 1rem;
+    }
+    .inner-card {
+        height: 100%;
+    }
+</style>
+@endpush
 
 @push('scripts')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -90,8 +107,6 @@
         $('#trackingForm').submit(function(e) {
             e.preventDefault();
             var trackingNumber = $('#tracking_number').val();
-            $('#trackingDetails').hide(); // Hide tracking details before loading new data
-
             $.ajax({
                 url: '{{ route("api.track") }}',
                 method: 'POST',
@@ -101,65 +116,72 @@
                     var parcel = response.parcel;
                     var updates = response.tracking_updates;
                     var receiver = response.receiver;
-
-                    var html = '<div class="card shadow-sm border-light">' +
+                    var html = '<div class="card shadow-lg">' +
+                        '<div class="card-body">' +
+                        '<div class="row mb-4">' +
+                        '<div class="col-md-6">' +
+                        '<div class="card inner-card">' +
                         '<div class="card-body">' +
                         '<h5 class="card-title">Parcel Information</h5>' +
-                        '<table class="table table-striped table-bordered">' +
+                        '<table class="table table-borderless">' +
                         '<tbody>' +
                         '<tr><th>Tracking Number</th><td>' + parcel.tracking_number + '</td></tr>' +
                         '<tr><th>Carrier</th><td>' + parcel.carrier + '</td></tr>' +
-                        '<tr><th>Sending Date</th><td>' + parcel.sending_date + '</td></tr>' +
+                        '<tr><th>Dispatched Date</th><td>' + new Date(parcel.sending_date).toLocaleDateString() + '</td>' +
                         '<tr><th>Weight</th><td>' + parcel.weight + ' kg</td></tr>' +
-                        '<tr><th>Status</th><td>' + parcel.status + '</td></tr>' +
-                        '<tr><th>Estimated Delivery Date</th><td>' + parcel.estimated_delivery_date + '</td></tr>' +
+                        '<tr><th>Estimated Delivery</th><td>' + new Date(parcel.estimated_delivery_date).toLocaleDateString() + '</td></tr>' +
                         '</tbody>' +
                         '</table>' +
-                        '<h6 class="mt-4">Receiver Information</h6>' +
-                        '<table class="table table-striped table-bordered">' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="col-md-6">' +
+                        '<div class="card inner-card">' +
+                        '<div class="card-body">' +
+                        '<h5 class="card-title">Receiver Information</h5>' +
+                        '<table class="table table-borderless">' +
                         '<tbody>' +
-                        '<tr><th>Receiver Name</th><td>' + receiver.fullname + '</td></tr>' +
+                        '<tr><th>Name</th><td>' + receiver.fullname + '</td></tr>' +
+                        '<tr><th>Address</th><td>' + 
+                        receiver.country + ', ' + 
+                        receiver.city + ', ' + 
+                        receiver.state + ', ' + 
+                        receiver.postal_code + 
+                        '</td></tr>' +
                         '</tbody>' +
                         '</table>' +
-                        '<h6 class="mt-4">Tracking Updates</h6>' +
-                        '<table class="table table-striped table-bordered">' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="card">' +
+                        '<div class="card-body">' +
+                        '<h5 class="card-title">Tracking Updates</h5>' +
+                        '<table class="table table-striped">' +
                         '<thead>' +
-                        '<tr><th>Date & Time</th><th>Location</th><th>Activity</th></tr>' +
+                        '<tr><th>Date</th><th>Activity</th></tr>' +
                         '</thead>' +
                         '<tbody>';
-
                     updates.forEach(function(update) {
                         html += '<tr>' +
-                            '<td>' + update.created_at + '</td>' +
-                            '<td>' + (update.location || 'N/A') + '</td>' +
+                            '<td>' + new Date(update.created_at).toLocaleDateString() + '</td>' +
                             '<td>' + update.status + '</td>' +
                             '</tr>';
                     });
-
                     html += '</tbody>' +
                         '</table>' +
-                        '</div></div>';
-
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>';
                     $('#result').html(html);
                 },
                 error: function(xhr, status, error) {
                     console.error('Error:', status, error);
-                    alert('Parcel not found or an error occurred');
+                    $('#result').html('<div class="alert alert-danger">Parcel not found or an error occurred</div>');
                 }
             });
         });
-
-        function calculateProgressPercent(status) {
-            // Example implementation, adjust based on your status data
-            switch(status) {
-                case 'Delivered': return 100;
-                case 'Out for Delivery': return 80;
-                case 'In Transit': return 60;
-                case 'Pick Up': return 40;
-                case 'Label Created': return 20;
-                default: return 0;
-            }
-        }
     });
 </script>
 @endpush
